@@ -5,14 +5,14 @@ Singleton pattern — initialized once, reused across all agents.
 
 import os
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import MistralClient
 
 load_dotenv()
 
 _client = None
 
 
-def get_client():
+def get_client() -> MistralClient:
     """Get or create the shared Mistral client instance."""
     global _client
 
@@ -22,6 +22,6 @@ def get_client():
         if not api_key:
             raise ValueError("MISTRAL_API_KEY not found in environment variables")
 
-        _client = Mistral(api_key=api_key)
+        _client = MistralClient(api_key=api_key)
 
     return _client
